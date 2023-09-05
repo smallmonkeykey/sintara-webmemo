@@ -3,7 +3,6 @@ require 'json'
 
 set :enviroment, :production
 
-
 def load_jsonfile
   File.open("memos.json", "r") do |file|
     JSON.load(file) || []
@@ -31,6 +30,11 @@ def take_unique_memo(memos_data, params)
 	id_memo_data
 end
 
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text)
+	end
+end
 
 get '/' do
 	redirect '/memos'
