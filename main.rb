@@ -35,11 +35,11 @@ end
 get '/' do
 	@memos_date = load_jsonfile
 
-    erb :top
+  erb :top
 end
 
 get '/memos/create' do
-    erb :new_memo
+  erb :new_memo
 end
 
 post '/memos/create' do
@@ -66,7 +66,6 @@ delete '/memos/:id/show' do
 	write_to_jsonfile(memos_data)
 	
 	redirect '/'
-
 end
 
 get '/memos/:id/edit' do
@@ -74,4 +73,24 @@ get '/memos/:id/edit' do
 	@id_memo_data = take_unique_memo(memos_data, params)
 
 	erb :edit_memo
+end
+
+patch '/memos/:id/edit' do
+	memos_data = load_jsonfile
+	edit_memo_data = params.delete_if{|key, value|  key == "_method" }
+	edit_memo_data["id"] = edit_memo_data["id"].to_i
+
+	i = 0
+	arry_number = 0
+	memos_data.each do |memo_data|
+		if memo_data.value?(params[:id].to_i)
+			arry_number = i
+		end
+		i =+ 1
+	end
+	
+	memos_data[arry_number] = edit_memo_data
+	write_to_jsonfile(memos_data)
+
+	redirect '/'
 end
