@@ -33,6 +33,10 @@ end
 
 
 get '/' do
+	redirect '/memos'
+end
+
+get '/memos' do
 	@memos_date = load_jsonfile
 
   erb :top
