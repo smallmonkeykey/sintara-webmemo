@@ -1,0 +1,13 @@
+<h2><%= @id_memo_data["name"] %></h2>
+<h3><%= @id_memo_data["message"] %></h3>
+
+<div>
+    <button onclick="location.href='/memos/<%= @id_memo_data['id'] %>/edit'">変更</button>
+</div>
+<br>
+<div>
+    <form method="post" action="">
+         <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="削除">
+    </form>
+</div>

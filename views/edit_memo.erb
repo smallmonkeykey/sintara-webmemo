@@ -1,0 +1,14 @@
+<form method="post" action="">
+        <div>
+            <label for="name">タイトル</label><br>
+            <input type="text" name="name" value="<%= @id_memo_data["name"] %>">
+        </div>
+        <br>
+        <div>
+            <label for="message">内容</label><br>
+            <textarea name="message"><%= @id_memo_data["message"] %></textarea>
+        </div>
+
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="変更">
+</form>
