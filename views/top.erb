@@ -1,4 +1,4 @@
-<button  type="button" onclick="location.href='/memos/create'">メモを追加する</button>
+<button type="button" onclick="location.href='/memos/create'">メモを追加する</button>
 <% @memos_date.each do |memo_date| %>
     <li>
         <a href="/memos/<%= memo_date["id"] %>/show"><%= h memo_date["name"] %></a>
