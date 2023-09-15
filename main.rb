@@ -50,8 +50,11 @@ end
 
 post '/memos/create' do
   memos = load_jsonfile
-  params['id'] = give_number_to_memos(memos)
-  memos << params
+  memos << {
+    "name": params[:name],
+    "message": params[:message],
+    "id": give_number_to_memos(memos)
+  }
   write_to_jsonfile(memos)
 
   redirect '/'
