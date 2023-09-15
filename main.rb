@@ -82,8 +82,8 @@ end
 
 patch '/memos/:id/edit' do
   memos = load_jsonfile
-  edit_memo_data = params.delete_if { |key, _value| key == '_method' }
-  edit_memo_data['id'] = edit_memo_data['id'].to_i
+  edited_memo_data = params.delete_if { |key, _value| key == '_method' }
+  edited_memo_data['id'] = edited_memo_data['id'].to_i
 
   i = 0
   arry_number = 0
@@ -92,7 +92,7 @@ patch '/memos/:id/edit' do
     i = + 1
   end
 
-  memos[arry_number] = edit_memo_data
+  memos[arry_number] = edited_memo_data
   write_to_jsonfile(memos)
 
   redirect '/'
