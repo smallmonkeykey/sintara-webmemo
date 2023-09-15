@@ -50,8 +50,7 @@ end
 
 post '/memos/create' do
   memos = load_jsonfile
-  new_memo_id = give_number_to_memos(memos)
-  params['id'] = new_memo_id
+  params['id'] = give_number_to_memos(memos)
   memos << params
   write_to_jsonfile(memos)
 
