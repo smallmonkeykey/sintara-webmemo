@@ -23,13 +23,9 @@ def give_number_to_memos(memos)
 end
 
 def take_unique_memo(memos, params)
-  id_memo_data = {}
-
   memos.each do |memo_data|
-    id_memo_data = memo_data if memo_data.value?(params[:id].to_i)
+   return memo_data if memo_data.value?(params[:id].to_i)
   end
-
-  id_memo_data
 end
 
 helpers do
