@@ -18,8 +18,8 @@ def write_to_jsonfile(memos)
 end
 
 def give_number_to_memos(memos)
- maximum_memo = memos.max {|a, b| a["id"] <=> b["id"] } || {}
- maximum_memo["id"].to_i + 1
+  maximum_memo = memos.max_by { |a| a['id'] } || {}
+  maximum_memo['id'].to_i + 1
 end
 
 def take_unique_memo(memos, params)
@@ -40,7 +40,7 @@ end
 
 get '/memos' do
   unless FileTest.exist?('memos.json')
-    File.open('memos.json',"w") do |file|
+    File.open('memos.json', 'w') do |file|
       file << []
     end
   end
@@ -67,15 +67,15 @@ end
 
 get '/memos/:id/show' do
   memos = load_jsonfile
-  @memo= take_unique_memo(memos, params)
+  @memo = take_unique_memo(memos, params)
 
   erb :show_memo
 end
 
 delete '/memos/:id/show' do
   memos = load_jsonfile
-  memo= take_unique_memo(memos, params)
-  memos.delete_if { |memo_data| memo_data == memo}
+  memo = take_unique_memo(memos, params)
+  memos.delete_if { |memo_data| memo_data == memo }
   write_to_jsonfile(memos)
 
   redirect '/'
@@ -83,7 +83,7 @@ end
 
 get '/memos/:id/edit' do
   memos = load_jsonfile
-  @memo= take_unique_memo(memos, params)
+  @memo = take_unique_memo(memos, params)
 
   erb :edit_memo
 end
