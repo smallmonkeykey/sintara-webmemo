@@ -1,12 +1,12 @@
 <form method="post" action="">
         <div>
             <label for="name">タイトル</label><br>
-            <input type="text" name="name" value="<%= @id_memo_data["name"] %>">
+            <input type="text" name="name" value="<%= @memo["name"] %>">
         </div>
         <br>
         <div>
             <label for="message">内容</label><br>
-            <textarea name="message"><%= @id_memo_data["message"] %></textarea>
+            <textarea name="message"><%= @memo["message"] %></textarea>
         </div>
     <br>
     <input type="hidden" name="_method" value="PATCH">

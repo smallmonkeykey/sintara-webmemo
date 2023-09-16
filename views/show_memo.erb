@@ -1,8 +1,8 @@
-<h2><%= h @id_memo_data["name"] %></h2>
-<h3><%= h @id_memo_data["message"] %></h3>
+<h2><%= h @memo["name"] %></h2>
+<h3><%= h @memo["message"] %></h3>
 
 <div>
-    <button onclick="location.href='/memos/<%= @id_memo_data['id'] %>/edit'">変更</button>
+    <button onclick="location.href='/memos/<%= @memo['id'] %>/edit'">変更</button>
 </div>
 <br>
 <div>

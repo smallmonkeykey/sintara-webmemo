@@ -62,15 +62,15 @@ end
 
 get '/memos/:id/show' do
   memos = load_jsonfile
-  @id_memo_data = take_unique_memo(memos, params)
+  @memo= take_unique_memo(memos, params)
 
   erb :show_memo
 end
 
 delete '/memos/:id/show' do
   memos = load_jsonfile
-  id_memo_data = take_unique_memo(memos, params)
-  memos.delete_if { |memo_data| memo_data == id_memo_data }
+  memo= take_unique_memo(memos, params)
+  memos.delete_if { |memo_data| memo_data == memo}
   write_to_jsonfile(memos)
 
   redirect '/'
@@ -78,7 +78,7 @@ end
 
 get '/memos/:id/edit' do
   memos = load_jsonfile
-  @id_memo_data = take_unique_memo(memos, params)
+  @memo= take_unique_memo(memos, params)
 
   erb :edit_memo
 end
