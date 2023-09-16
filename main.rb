@@ -39,6 +39,11 @@ get '/' do
 end
 
 get '/memos' do
+  unless FileTest.exist?('memos.json')
+    File.open('memos.json',"w") do |file|
+      file << []
+    end
+  end
   @memos = load_jsonfile
 
   erb :top
