@@ -74,8 +74,7 @@ end
 
 delete '/memos/:id/show' do
   memos = load_jsonfile
-  taking_memo = take_unique_memo(memos, params)
-  memos.delete_if { |memo| memo == taking_memo }
+  memos.delete_if { |memo| memo == take_unique_memo(memos, params) }
   write_to_jsonfile(memos)
 
   redirect '/'
