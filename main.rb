@@ -23,8 +23,8 @@ def give_number_to_memos(memos)
 end
 
 def take_unique_memo(memos, params)
-  memos.each do |memo_data|
-    return memo_data if memo_data.value?(params[:id].to_i)
+  memos.each do |memo|
+    return memo if memo.value?(params[:id].to_i)
   end
 end
 
@@ -74,8 +74,8 @@ end
 
 delete '/memos/:id/show' do
   memos = load_jsonfile
-  memo = take_unique_memo(memos, params)
-  memos.delete_if { |memo_data| memo_data == memo }
+  taking_memo = take_unique_memo(memos, params)
+  memos.delete_if { |memo| memo == taking_memo }
   write_to_jsonfile(memos)
 
   redirect '/'
@@ -90,14 +90,14 @@ end
 
 patch '/memos/:id/edit' do
   memos = load_jsonfile
-  edited_memo_data = params.delete_if { |key, _value| key == '_method' }
-  edited_memo_data['id'] = edited_memo_data['id'].to_i
+  edited_memo = params.delete_if { |key, _value| key == '_method' }
+  edited_memo['id'] = edited_memo['id'].to_i
 
-  array_number = memos.find_index do |memo_data|
-    memo_data.value?(params[:id].to_i)
+  array_number = memos.find_index do |memo|
+    memo.value?(params[:id].to_i)
   end
 
-  memos[array_number] = edited_memo_data
+  memos[array_number] = edited_memo
   write_to_jsonfile(memos)
 
   redirect '/'
