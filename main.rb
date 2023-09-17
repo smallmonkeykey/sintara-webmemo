@@ -7,7 +7,7 @@ set :enviroment, :production
 
 def load_jsonfile
   File.open('memos.json', 'r') do |file|
-    JSON.load_file(file) || []
+    JSON.load(file) || []
   end
 end
 
