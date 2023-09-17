@@ -7,7 +7,7 @@ set :enviroment, :production
 
 def load_jsonfile
   File.open('memos.json', 'r') do |file|
-    JSON.load(file) || []
+    JSON.parse(file.read) || []
   end
 end
 
@@ -97,7 +97,7 @@ patch '/memos/:id/edit' do
     id: params[:id].to_i
   }
 
-  index = memos.find_index { |memo| memo["id"] == edited_memo[:id] }
+  index = memos.find_index { |memo| memo['id'] == edited_memo[:id] }
   memos[index] = edited_memo
   write_to_jsonfile(memos)
 
