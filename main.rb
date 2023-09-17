@@ -90,14 +90,15 @@ end
 
 patch '/memos/:id/edit' do
   memos = load_jsonfile
-  edited_memo = params.delete_if { |key, _value| key == '_method' }
-  edited_memo['id'] = edited_memo['id'].to_i
 
-  array_number = memos.find_index do |memo|
-    memo.value?(params[:id].to_i)
-  end
+  edited_memo = {
+    name: params[:name],
+    message: params[:message],
+    id: params[:id].to_i
+  }
 
-  memos[array_number] = edited_memo
+  index = memos.find_index { |memo| memo["id"] == edited_memo[:id] }
+  memos[index] = edited_memo
   write_to_jsonfile(memos)
 
   redirect '/'
