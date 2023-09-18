@@ -24,7 +24,7 @@ def write_to_jsonfile(memos)
 end
 
 def give_number_to_memos(memos)
-  memos.map { |memo_data| memo_data['id'] }.max.to_i + 1
+  memos.map { _1['id'] }.max.to_i + 1
 end
 
 def take_unique_memo(memos, params)
@@ -101,7 +101,7 @@ patch '/memos/:id/edit' do
     id: params[:id].to_i
   }
 
-  index = memos.find_index { |memo| memo['id'] == edited_memo[:id] }
+  index = memos.find_index { _1['id'] == edited_memo[:id] }
   memos[index] = edited_memo
   write_to_jsonfile(memos)
 
