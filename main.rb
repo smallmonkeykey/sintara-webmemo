@@ -24,8 +24,7 @@ def write_to_jsonfile(memos)
 end
 
 def give_number_to_memos(memos)
-  maximum_memo = memos.max_by { |a| a['id'] } || {}
-  maximum_memo['id'].to_i + 1
+  memos.map { |memo_data| memo_data['id'] }.max.to_i + 1
 end
 
 def take_unique_memo(memos, params)
