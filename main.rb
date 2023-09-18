@@ -7,7 +7,7 @@ set :enviroment, :production
 
 def load_jsonfile
   if FileTest.zero?('memos.json')
-     File.open('memos.json', 'w') do |file|
+    File.open('memos.json', 'w') do |file|
       file << []
     end
   end
