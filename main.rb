@@ -6,8 +6,14 @@ require 'json'
 set :enviroment, :production
 
 def load_jsonfile
+  if FileTest.zero?('memos.json')
+     File.open('memos.json', 'w') do |file|
+      file << []
+    end
+  end
+
   File.open('memos.json', 'r') do |file|
-    JSON.parse(file.read) || []
+    JSON.parse(file.read)
   end
 end
 
