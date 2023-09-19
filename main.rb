@@ -5,15 +5,13 @@ require 'json'
 
 set :enviroment, :production
 
-def create_jsonfile
+def load_jsonfile
   unless FileTest.exist?('memos.json')
     File.open('memos.json', 'w') do |file|
       file << []
     end
   end
-end
 
-def load_jsonfile
   File.open('memos.json', 'r') do |file|
     JSON.parse(file.read)
   end
@@ -46,7 +44,6 @@ get '/' do
 end
 
 get '/memos' do
-  create_jsonfile
   @memos = load_jsonfile
 
   erb :top
