@@ -5,7 +5,7 @@ require 'json'
 
 set :enviroment, :production
 
-FILE_NAME = 'memos.json'.freeze
+FILE_NAME = 'memos.json'
 
 def load_jsonfile
   write_to_jsonfile([]) unless FileTest.exist?(FILE_NAME)
