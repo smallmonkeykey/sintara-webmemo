@@ -6,11 +6,7 @@ require 'json'
 set :enviroment, :production
 
 def load_jsonfile
-  unless FileTest.exist?('memos.json')
-    File.open('memos.json', 'w') do |file|
-      file << []
-    end
-  end
+  write_to_jsonfile([]) unless FileTest.exist?('memos.json')
 
   File.open('memos.json', 'r') do |file|
     JSON.parse(file.read)
