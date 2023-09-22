@@ -1,0 +1,15 @@
+<form method="post" action="">
+        <div>
+            <label for="name">タイトル</label><br>
+            <input type="text" name="name" value="<%= @memo["name"] %>">
+        </div>
+        <br>
+        <div>
+            <label for="message">内容</label><br>
+            <textarea name="message"><%= @memo["message"] %></textarea>
+        </div>
+    <br>
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="変更">
+</form>
+<a href="/memos">TOPへ戻る</a>
