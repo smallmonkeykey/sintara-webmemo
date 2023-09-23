@@ -8,18 +8,12 @@ set :enviroment, :production
 
 FILE_NAME = 'memos.json'
 
-def load_jsonfile
-  write_to_jsonfile([]) unless FileTest.exist?(FILE_NAME)
-
-  File.open(FILE_NAME, 'r') do |file|
-    JSON.parse(file.read)
-  end
+def connect_databese
+  PG.connect( dbname: 'memosdata' )
 end
 
-def write_to_jsonfile(memos)
-  File.open(FILE_NAME, 'w') do |file|
-    JSON.dump(memos, file)
-  end
+def load_databese
+  connect_databese.exec( "SELECT * FROM memos" )
 end
 
 def give_number_to_memos(memos)
@@ -43,7 +37,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = load_jsonfile
+  @memos = load_databese
 
   erb :top
 end
@@ -53,19 +47,20 @@ get '/memos/create' do
 end
 
 post '/memos/create' do
-  memos = load_jsonfile
-  memos << {
-    "name": params[:name],
-    "message": params[:message],
-    "id": give_number_to_memos(memos)
-  }
-  write_to_jsonfile(memos)
+  memos = load_databese
+
+  id =  give_number_to_memos(memos)
+  name = params[:name]
+  message = params[:message]
+
+  sql = "INSERT INTO memos (id, name, message) VALUES ('#{id}', '#{name}','#{message}');"
+  connect_databese.exec_params(sql)
 
   redirect '/'
 end
 
 get '/memos/:id/show' do
-  memos = load_jsonfile
+  memos = load_databese
   @memo = take_unique_memo(memos, params)
 
   erb :show_memo
