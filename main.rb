@@ -67,11 +67,12 @@ get '/memos/:id/show' do
 end
 
 delete '/memos/:id/show' do
-  memos = load_jsonfile
-  memos.delete_if { |memo| memo == find_memo(memos, params) }
-  write_to_jsonfile(memos)
+  memos = load_databese
+  sql = "DELETE FROM Memos WHERE id = #{find_memo(memos, params)["id"]} "
+  connect_databese.exec_params(sql)
 
   redirect '/'
+
 end
 
 get '/memos/:id/edit' do
