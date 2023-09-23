@@ -2,9 +2,9 @@
 
 source 'https://rubygems.org'
 
+gem 'pg'
 gem 'sinatra'
 gem 'webrick'
-gem 'pg'
 
 # For plain Ruby scripts
 group :development do

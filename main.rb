@@ -2,18 +2,18 @@
 
 require 'sinatra'
 require 'json'
-require 'pg' 
+require 'pg'
 
 set :enviroment, :production
 
 FILE_NAME = 'memos.json'
 
 def connect_databese
-  PG.connect( dbname: 'memosdata' )
+  PG.connect(dbname: 'memosdata')
 end
 
 def load_databese
-  connect_databese.exec( "SELECT * FROM memos" )
+  connect_databese.exec('SELECT * FROM memos')
 end
 
 def give_number_to_memos(memos)
@@ -68,7 +68,7 @@ end
 
 delete '/memos/:id/show' do
   memos = load_databese
-  sql = "DELETE FROM Memos WHERE id = #{find_memo(memos, params)["id"]} "
+  sql = "DELETE FROM Memos WHERE id = #{find_memo(memos, params)['id']} "
   connect_databese.exec_params(sql)
 
   redirect '/'
@@ -82,7 +82,7 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id/edit' do
-  memos = load_databese
+  load_databese
 
   id = params[:id].to_i
   name = params[:name]
