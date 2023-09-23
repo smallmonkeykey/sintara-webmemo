@@ -2,6 +2,7 @@
 
 require 'sinatra'
 require 'json'
+require 'pg' 
 
 set :enviroment, :production
 
