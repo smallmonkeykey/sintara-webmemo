@@ -72,28 +72,24 @@ delete '/memos/:id/show' do
   connect_databese.exec_params(sql)
 
   redirect '/'
-
 end
 
 get '/memos/:id/edit' do
-  memos = load_jsonfile
+  memos = load_databese
   @memo = find_memo(memos, params)
 
   erb :edit_memo
 end
 
 patch '/memos/:id/edit' do
-  memos = load_jsonfile
+  memos = load_databese
 
-  edited_memo = {
-    name: params[:name],
-    message: params[:message],
-    id: params[:id].to_i
-  }
+  id = params[:id].to_i
+  name = params[:name]
+  message = params[:message]
 
-  index = memos.find_index { _1['id'] == edited_memo[:id] }
-  memos[index] = edited_memo
-  write_to_jsonfile(memos)
+  sql = "UPDATE Memos SET name = '#{name}', message = '#{message}' WHERE id = #{id};"
+  connect_databese.exec_params(sql)
 
   redirect '/'
 end
