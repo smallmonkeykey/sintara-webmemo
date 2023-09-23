@@ -22,7 +22,7 @@ end
 
 def take_unique_memo(memos, params)
   memos.each do |memo|
-    return memo if memo.value?(params[:id].to_i)
+    return memo if memo.value?(params[:id])
   end
 end
 
