@@ -20,7 +20,7 @@ def give_number_to_memos(memos)
   memos.map { _1['id'] }.max.to_i + 1
 end
 
-def take_unique_memo(memos, params)
+def find_memo(memos, params)
   memos.each do |memo|
     return memo if memo.value?(params[:id])
   end
@@ -61,14 +61,14 @@ end
 
 get '/memos/:id/show' do
   memos = load_databese
-  @memo = take_unique_memo(memos, params)
+  @memo = find_memo(memos, params)
 
   erb :show_memo
 end
 
 delete '/memos/:id/show' do
   memos = load_jsonfile
-  memos.delete_if { |memo| memo == take_unique_memo(memos, params) }
+  memos.delete_if { |memo| memo == find_memo(memos, params) }
   write_to_jsonfile(memos)
 
   redirect '/'
@@ -76,7 +76,7 @@ end
 
 get '/memos/:id/edit' do
   memos = load_jsonfile
-  @memo = take_unique_memo(memos, params)
+  @memo = find_memo(memos, params)
 
   erb :edit_memo
 end
