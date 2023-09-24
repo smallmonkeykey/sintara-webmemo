@@ -53,8 +53,8 @@ post '/memos/create' do
   name = params[:name]
   message = params[:message]
 
-  sql = "INSERT INTO memos (id, name, message) VALUES ('#{id}', '#{name}','#{message}');"
-  connect_databese.exec_params(sql)
+  sql = "INSERT INTO memos (id, name, message) VALUES ($1, $2, $3)"
+  connect_databese.exec_params(sql,[id, name, message])
 
   redirect '/'
 end
