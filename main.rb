@@ -83,8 +83,6 @@ get '/memos/:id/edit' do
 end
 
 patch '/memos/:id/edit' do
-  load_databese
-
   id = params[:id].to_i
   name = params[:name]
   message = params[:message]
