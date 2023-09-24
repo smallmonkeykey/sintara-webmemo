@@ -53,8 +53,8 @@ post '/memos/create' do
   name = params[:name]
   message = params[:message]
 
-  sql = "INSERT INTO memos (id, name, message) VALUES ($1, $2, $3)"
-  connect_databese.exec_params(sql,[id, name, message])
+  sql = 'INSERT INTO memos (id, name, message) VALUES ($1, $2, $3)'
+  connect_databese.exec_params(sql, [id, name, message])
 
   redirect '/'
 end
@@ -69,8 +69,8 @@ end
 delete '/memos/:id/show' do
   memos = load_databese
 
-  sql = "DELETE FROM Memos WHERE id = $1 "
-  connect_databese.exec_params(sql,[find_memo(memos, params)['id']])
+  sql = 'DELETE FROM Memos WHERE id = $1 '
+  connect_databese.exec_params(sql, [find_memo(memos, params)['id']])
 
   redirect '/'
 end
@@ -87,8 +87,8 @@ patch '/memos/:id/edit' do
   name = params[:name]
   message = params[:message]
 
-  sql = "UPDATE Memos SET name = $1, message = $2 WHERE id = $3"
-  connect_databese.exec_params(sql,[name, message, id])
+  sql = 'UPDATE Memos SET name = $1, message = $2 WHERE id = $3'
+  connect_databese.exec_params(sql, [name, message, id])
 
   redirect '/'
 end
