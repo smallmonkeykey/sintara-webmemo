@@ -68,8 +68,9 @@ end
 
 delete '/memos/:id/show' do
   memos = load_databese
-  sql = "DELETE FROM Memos WHERE id = #{find_memo(memos, params)['id']} "
-  connect_databese.exec_params(sql)
+
+  sql = "DELETE FROM Memos WHERE id = $1 "
+  connect_databese.exec_params(sql,[find_memo(memos, params)['id']])
 
   redirect '/'
 end
