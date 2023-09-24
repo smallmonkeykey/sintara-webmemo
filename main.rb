@@ -13,7 +13,7 @@ def connect_databese
 end
 
 def load_databese
-  connect_databese.exec('SELECT * FROM memos')
+  connect_databese.exec('SELECT * FROM memos ORDER BY id ASC')
 end
 
 def give_number_to_memos(memos)
