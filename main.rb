@@ -89,8 +89,8 @@ patch '/memos/:id/edit' do
   name = params[:name]
   message = params[:message]
 
-  sql = "UPDATE Memos SET name = '#{name}', message = '#{message}' WHERE id = #{id};"
-  connect_databese.exec_params(sql)
+  sql = "UPDATE Memos SET name = $1, message = $2 WHERE id = $3"
+  connect_databese.exec_params(sql,[name, message, id])
 
   redirect '/'
 end
