@@ -54,7 +54,10 @@ end
 
 get '/memos/:id/show' do
   memos = load_databese(connection)
-  @memo = find_memo(memos, params)
+
+  id = params[:id].to_i
+  sql = 'SELECT * FROM memos WHERE id = $1'
+  @memo = connection.exec_params(sql, [id]).first
 
   erb :show_memo
 end
