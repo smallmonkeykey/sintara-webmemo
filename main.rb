@@ -6,9 +6,7 @@ require 'pg'
 
 set :enviroment, :production
 
-FILE_NAME = 'memos.json'
-
-connection = PG.connect(dbname: 'memosdata')
+connection = PG.connect(dbname: 'memo_app')
 
 def load_databese(connection)
   connection.exec('SELECT * FROM memos ORDER BY id ASC')
@@ -45,14 +43,14 @@ get '/memos/create' do
 end
 
 post '/memos/create' do
-  memos = load_databese(connection)
+  # memos = load_databese(connection)
 
-  id =  give_number_to_memos(memos)
+  # id =  give_number_to_memos(memos)
   name = params[:name]
   message = params[:message]
 
-  sql = 'INSERT INTO memos (id, name, message) VALUES ($1, $2, $3)'
-  connection.exec_params(sql, [id, name, message])
+  sql = 'INSERT INTO memos (name, message) VALUES ($1, $2)'
+  connection.exec_params(sql, [name, message])
 
   redirect '/'
 end

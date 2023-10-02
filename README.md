@@ -6,12 +6,12 @@
 2. memoフォルダに移動してください
 3. PostgreSQLを使ってデータベースを作成していきます。ない方は、PostgreSQLのインストールをお願いします。
     1. PostgreSQLを起動します
-    2. `create database memosdata;` memosdataというデータベースを作成していきます
-    3. `\c memosdata` memosdataデータベースに移動します
-    4. Memosというテーブルを作成していきます。以下を入力してください。
+    2. `create database memo_app;` memo_appというデータベースを作成していきます
+    3. `\c memo_app` memo_appデータベースに移動します
+    4. memosというテーブルを作成していきます。以下を入力してください。
 ```
-create table Memos
-(id integer not null,
+create table memos
+(id serial,
 name varchar(30) not null,
 message varchar(100) not null,
 primary key (id));
