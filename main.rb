@@ -8,12 +8,10 @@ set :enviroment, :production
 
 FILE_NAME = 'memos.json'
 
-def connect_databese
-  PG.connect(dbname: 'memosdata')
-end
+connection = PG.connect(dbname: 'memosdata')
 
-def load_databese
-  connect_databese.exec('SELECT * FROM memos ORDER BY id ASC')
+def load_databese(connection)
+  connection.exec('SELECT * FROM memos ORDER BY id ASC')
 end
 
 def give_number_to_memos(memos)
@@ -37,7 +35,7 @@ get '/' do
 end
 
 get '/memos' do
-  @memos = load_databese
+  @memos = load_databese(connection)
 
   erb :top
 end
@@ -47,36 +45,36 @@ get '/memos/create' do
 end
 
 post '/memos/create' do
-  memos = load_databese
+  memos = load_databese(connection)
 
   id =  give_number_to_memos(memos)
   name = params[:name]
   message = params[:message]
 
   sql = 'INSERT INTO memos (id, name, message) VALUES ($1, $2, $3)'
-  connect_databese.exec_params(sql, [id, name, message])
+  connection.exec_params(sql, [id, name, message])
 
   redirect '/'
 end
 
 get '/memos/:id/show' do
-  memos = load_databese
+  memos = load_databese(connection)
   @memo = find_memo(memos, params)
 
   erb :show_memo
 end
 
 delete '/memos/:id/show' do
-  memos = load_databese
+  memos = load_databese(connection)
 
   sql = 'DELETE FROM Memos WHERE id = $1 '
-  connect_databese.exec_params(sql, [find_memo(memos, params)['id']])
+  connection.exec_params(sql, [find_memo(memos, params)['id']])
 
   redirect '/'
 end
 
 get '/memos/:id/edit' do
-  memos = load_databese
+  memos = load_databese(connection)
   @memo = find_memo(memos, params)
 
   erb :edit_memo
@@ -88,7 +86,7 @@ patch '/memos/:id/edit' do
   message = params[:message]
 
   sql = 'UPDATE Memos SET name = $1, message = $2 WHERE id = $3'
-  connect_databese.exec_params(sql, [name, message, id])
+  connection.exec_params(sql, [name, message, id])
 
   redirect '/'
 end
