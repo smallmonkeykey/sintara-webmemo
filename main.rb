@@ -47,8 +47,6 @@ post '/memos/create' do
 end
 
 get '/memos/:id/show' do
-  memos = load_databese(connection)
-
   id = params[:id].to_i
   sql = 'SELECT * FROM memos WHERE id = $1'
   @memo = connection.exec_params(sql, [id]).first
@@ -57,8 +55,6 @@ get '/memos/:id/show' do
 end
 
 delete '/memos/:id/show' do
-  memos = load_databese(connection)
-
   id = params[:id].to_i
   sql = 'DELETE FROM Memos WHERE id = $1 '
   connection.exec_params(sql, [id])
@@ -67,8 +63,6 @@ delete '/memos/:id/show' do
 end
 
 get '/memos/:id/edit' do
-  memos = load_databese(connection)
-
   id = params[:id].to_i
   sql = 'SELECT * FROM memos WHERE id = $1'
   @memo = connection.exec_params(sql, [id]).first
