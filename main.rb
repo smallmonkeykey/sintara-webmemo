@@ -43,9 +43,6 @@ get '/memos/create' do
 end
 
 post '/memos/create' do
-  # memos = load_databese(connection)
-
-  # id =  give_number_to_memos(memos)
   name = params[:name]
   message = params[:message]
 
