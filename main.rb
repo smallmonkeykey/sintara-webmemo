@@ -16,12 +16,6 @@ def give_number_to_memos(memos)
   memos.map { _1['id'] }.max.to_i + 1
 end
 
-def find_memo(memos, params)
-  memos.each do |memo|
-    return memo if memo.value?(params[:id])
-  end
-end
-
 helpers do
   def h(text)
     Rack::Utils.escape_html(text)
@@ -74,7 +68,10 @@ end
 
 get '/memos/:id/edit' do
   memos = load_databese(connection)
-  @memo = find_memo(memos, params)
+
+  id = params[:id].to_i
+  sql = 'SELECT * FROM memos WHERE id = $1'
+  @memo = connection.exec_params(sql, [id]).first
 
   erb :edit_memo
 end
