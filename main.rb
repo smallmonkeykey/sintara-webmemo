@@ -70,7 +70,7 @@ end
 delete '/memos/:id/show' do
   id = params[:id].to_i
   delete_memo(connection, id)
-  
+
   redirect '/'
 end
 
